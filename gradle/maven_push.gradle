@@ -27,8 +27,8 @@ afterEvaluate { project ->
         pom.artifactId = POM_ARTIFACT_ID
         repository(url: sonatypeRepositoryUrl) {
           try {
-            authentication(userName: mavenUser, password: mavenPassword)
-          } catch (Exception e) {
+            authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+          } catch (Exception ignored) {
             println "mavenUser or mavenPassword is missing"
           }
         }

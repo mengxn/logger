@@ -7,6 +7,7 @@
   <!--module name="NewlineAtEndOfFile"/-->
   <module name="FileLength"/>
   <module name="FileTabCharacter"/>
+  <module name="SuppressWarningsFilter" />
 
   <!-- Trailing spaces -->
   <module name="RegexpSingleline">
@@ -16,17 +17,12 @@
 
   <!-- Space after 'for' and 'if' -->
   <module name="RegexpSingleline">
-    <property name="format" value="^\s*(for|if)[^ ]"/>
+    <property name="format" value="^\s*(for|if)\b[^ ]"/>
     <property name="message" value="Space needed before opening parenthesis."/>
   </module>
 
-  <!-- For each spacing -->
-  <module name="RegexpSingleline">
-    <property name="format" value="^\s*for \(.*?([^ ]:|:[^ ])"/>
-    <property name="message" value="Space needed around ':' character."/>
-  </module>
-
   <module name="TreeWalker">
+    <module name="SuppressWarningsHolder" />
     <!-- <property name="cacheFile" value="${checkstyle.cache.file}"/>                    -->
 
 
@@ -137,7 +133,7 @@
     <!-- See http://checkstyle.sf.net/config_misc.html -->
     <module name="ArrayTypeStyle"/>
     <!--module name="FinalParameters"/-->
-    <module name="TodoComment"/>
+    <!--<module name="TodoComment"/>-->
     <module name="UpperEll"/>
   </module>
 </module>

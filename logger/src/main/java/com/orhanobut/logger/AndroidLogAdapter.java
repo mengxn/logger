@@ -1,29 +1,41 @@
 package com.orhanobut.logger;
 
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-class AndroidLogAdapter implements LogAdapter {
-  @Override public void d(String tag, String message) {
-    Log.d(tag, message);
+import static com.orhanobut.logger.Utils.checkNotNull;
+
+/**
+ * Android terminal log output implementation for {@link LogAdapter}.
+ *
+ * Prints output to LogCat with pretty borders.
+ *
+ * <pre>
+ *  ┌──────────────────────────
+ *  │ Method stack history
+ *  ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+ *  │ Log message
+ *  └──────────────────────────
+ * </pre>
+ */
+public class AndroidLogAdapter implements LogAdapter {
+
+  @NonNull private final FormatStrategy formatStrategy;
+
+  public AndroidLogAdapter() {
+    this.formatStrategy = PrettyFormatStrategy.newBuilder().build();
   }
 
-  @Override public void e(String tag, String message) {
-    Log.e(tag, message);
+  public AndroidLogAdapter(@NonNull FormatStrategy formatStrategy) {
+    this.formatStrategy = checkNotNull(formatStrategy);
   }
 
-  @Override public void w(String tag, String message) {
-    Log.w(tag, message);
+  @Override public boolean isLoggable(int priority, @Nullable String tag) {
+    return true;
   }
 
-  @Override public void i(String tag, String message) {
-    Log.i(tag, message);
+  @Override public void log(int priority, @Nullable String tag, @NonNull String message) {
+    formatStrategy.log(priority, tag, message);
   }
 
-  @Override public void v(String tag, String message) {
-    Log.v(tag, message);
-  }
-
-  @Override public void wtf(String tag, String message) {
-    Log.wtf(tag, message);
-  }
 }
